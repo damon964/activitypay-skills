@@ -5,8 +5,9 @@ software with the ActivityPay payment gateway. Once installed, the AI tool follo
 conventions for keys, hosted payment fields, idempotency, error handling, and card-on-file flags
 when it writes integration code.
 
-This folder mirrors the layout of [payroc/skills](https://github.com/payroc/skills). It is meant to be
-published as its own repository (planned: `github.com/activitypay/skills`).
+This repository mirrors the layout of [payroc/skills](https://github.com/payroc/skills). Its planned
+public home is `github.com/activitypay/skills`; the install commands below assume that name. The MCP
+server lives in a separate repository (`activitypay-mcp`).
 
 ## Plugins
 
@@ -50,10 +51,12 @@ plugins/activitypay/<plugin>/
   skills/<skill>/SKILL.md
   skills/<skill>/references/           copied from _shared/references by the sync script
 _shared/references/                    edit references here only
+scripts/sync.mjs                       copies references and regenerates manifests
 ```
 
 ## Maintaining
 
 1. Edit `SKILL.md` files or `_shared/references/*`.
-2. From the repo root run `npm run skills:sync`. It copies references into every skill and regenerates all manifests.
-3. Bump `metadata.version` in any changed `SKILL.md` so installed copies can detect the update.
+2. Run `npm run sync` (or `node scripts/sync.mjs`; Node 20+, no dependencies). It copies references into every skill and regenerates all manifests.
+3. When the gateway docs change, refresh `_shared/references/` from the sources listed in `_shared/references/_sources.md`, and keep them consistent with `spec/openapi.yaml` in the activitypay-mcp repository.
+4. Bump `metadata.version` in any changed `SKILL.md` so installed copies can detect the update.
