@@ -12,6 +12,17 @@ Read this before writing any error handling. Emit codes and shapes from here, no
 2. **The request worked but the payment was not approved.** A transaction was created and
    `data.response_code` says why. **HTTP 200 does not mean approved.** Always check `response_code`.
 
+## Account-setting errors (HTTP 400)
+
+These come from how the merchant account is configured, not from bad code. Each merchant can differ,
+so handle them per merchant rather than hardcoding one account's settings.
+
+| `msg` contains | Cause | Fix |
+|---|---|---|
+| `custom field [<name>] is required` | Merchant marked a custom field as required | `GET /api/customfields`, then send `custom_fields` (and `group_name` if not default) on every sale and authorization |
+| `card and ACH payment methods must be enabled since dual pricing permission is enabled` | Merchant has dual pricing | Invoices must use `"payment_methods": ["card", "ach"]` |
+| `invalid customer number` | Invoice `customer_number` format | Use letters and digits only |
+
 ## HTTP status handling
 
 | HTTP | Meaning | What to do |

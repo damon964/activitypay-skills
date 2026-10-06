@@ -54,6 +54,8 @@ Response envelope: `{"status": "success" | "failed", "msg": "...", "data": ...}`
 | `billing_method` | string | `straight` (default), `initial_recurring`, `recurring` |
 | `initial_transaction_id` | string | Only if not using the gateway vault |
 | `processor_id` | string | Only if the account has no default processor |
+| `custom_fields` | object | `{"<custom field id>": ["value"]}`. Values are always arrays of strings. Required when the merchant marks custom fields as required |
+| `group_name` | string | Only when those custom fields belong to a non-default group |
 
 ### POST /api/transaction/{id}/capture
 
@@ -81,6 +83,22 @@ Filters: string fields take `{"operator": "=" | "!=", "value": "..."}`; number f
 
 `status` values: `authorized`, `pending_settlement`, `settled`, `declined`, `voided`, `reversed`, `refunded`, `partially_refunded`, `returned`, `late_return`, `pending`, `flagged`, `flagged_partner`, `unknown`.
 
+## Custom fields
+
+Merchants can mark custom fields as required. The gateway then refuses every sale and authorization
+without them (`custom field [Invoice #] is required`).
+
+`GET /api/customfields` lists the account's fields: `id`, `name`, `group_name` (`default` unless set),
+`type`, `required`, `validation_type` (`open`, `alpha`, `numeric`, `alphanumeric`, `sentence`),
+`values` (allowed options for select/radio fields, or null). Merchants manage them in the control
+panel under Manage → Custom Fields.
+
+Send required fields on every sale and authorization:
+
+```json
+{ "custom_fields": { "<custom field id>": ["BOOKING1042"] }, "group_name": "<only if not default>" }
+```
+
 ## Customer vault
 
 | Method | Path | Purpose |
@@ -105,6 +123,12 @@ Optional: `invoice_number` (becomes the paying transaction's `order_id`), `custo
 Response: `data.id`, `data.public_hash`, `data.hosted_url` (send this to the guest).
 Other: `GET /api/invoice/{id}`, `POST /api/invoices/search`, `POST /api/invoice/{id}` (update), `DELETE /api/invoice/{id}`, `POST /api/invoice/{id}/resend`, `POST /api/invoice/{id or public_hash}/pay`.
 Status values seen: `pending`, `partially_paid`, `paid`, `past_due`, `declined`.
+
+**Dual pricing:** if the merchant has dual pricing enabled, card-only invoices are refused
+(`card and ACH payment methods must be enabled since dual pricing permission is enabled`). Send
+`"payment_methods": ["card", "ach"]` for those merchants; the hosted page then also offers bank account payment.
+
+`customer_number` rejects some characters (a hyphenated value was refused as `invalid customer number` in sandbox); letters and digits are safe.
 
 ## Hosted payment fields (Tokenizer)
 

@@ -7,6 +7,8 @@ run `npm run skills:sync`, and update the dates here.
 | Local file | Source | Last synced | Provenance |
 |---|---|---|---|
 | `api-schema.md` | https://sandbox.activitypaygateway.co/docs/api/ (requests, quickstart, transactions_sale_auth, transactions_capture, transactions_void, transactions_refund, transactions_search, customer_vault, invoices), /docs/services/tokenizer, /docs/services/webhooks | 2026-10-06 | gateway docs, curated slice |
+| `api-schema.md` (custom fields) | /docs/api/custom_fields, /docs/api/transactions_sale_auth (Custom Fields) | 2026-10-06 | gateway docs, curated slice |
+| `error-response-format.md` (account-setting errors) | Observed in a live ActivityPay sandbox account | 2026-10-06 | live sandbox, ActivityPay |
 | `error-response-format.md` | /docs/api/requests (errors, unauthorized), /docs/api/transactions_response | 2026-10-06 | gateway docs, curated slice + ActivityPay guidance |
 | `test-data.md` | /docs/test_data | 2026-10-06 | gateway docs, curated slice |
 

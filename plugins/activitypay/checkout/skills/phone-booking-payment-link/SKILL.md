@@ -9,7 +9,7 @@ description: >
   links, pay-by-link, invoices, sending a link to pay, or collecting a balance remotely. Do NOT use
   for online self-serve checkout (use booking-checkout) or for charging a saved card (use card-on-file).
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   category: checkout
   status: draft
 ---
@@ -47,10 +47,11 @@ Paid → transaction_create webhook with data.order_id == invoice_number
 1. **Staff never handle card numbers.** No "enter card for customer" screens. Always send a link.
 2. **`invoice_number` = booking id** so the paying transaction's `order_id` matches the booking.
 3. **Required fields are strict.** `payable_to` and `bill_to` each need `address_line_1`, `city`, 2-letter `state`, `postal_code`, 2-letter `country`. `tax_percent` is a string. `card_processor_id` and `ach_processor_id` are required (empty string uses the default).
-4. **`send_via: "none"`** when the booking software sends the link itself (SMS provider, email template). Use `email`/`text`/`both` only if the gateway should send it.
-5. **Confirm from the webhook**, not from the staff member saying "they paid". Polling `GET /api/invoice/{id}` is a fallback.
-6. **Hold inventory with an expiry** while the link is outstanding; release or cancel the invoice (`DELETE /api/invoice/{id}`) when it lapses.
-7. Integer cents; timeout ≥ 180 s; log `x-correlation-id`; private key on the server only.
+4. **Dual pricing merchants need card and ACH.** If the merchant has dual pricing enabled, card-only invoices are refused. Send `"payment_methods": ["card", "ach"]` for them; the guest then also sees a bank account option. Detect it per merchant (from onboarding data or by handling the error).
+5. **`send_via: "none"`** when the booking software sends the link itself (SMS provider, email template). Use `email`/`text`/`both` only if the gateway should send it.
+6. **Confirm from the webhook**, not from the staff member saying "they paid". Polling `GET /api/invoice/{id}` is a fallback.
+7. **Hold inventory with an expiry** while the link is outstanding; release or cancel the invoice (`DELETE /api/invoice/{id}`) when it lapses.
+8. Integer cents; timeout ≥ 180 s; log `x-correlation-id`; private key on the server only.
 
 ## Intake
 
@@ -90,3 +91,5 @@ For certification: `check_integration_readiness` with `flows: [..., "payment_lin
 - Omitting `card_processor_id` / `ach_processor_id`.
 - Confirming the booking when the link is sent instead of when it is paid.
 - Letting staff type card numbers "just this once".
+- `card and ACH payment methods must be enabled since dual pricing permission is enabled`: the merchant has dual pricing; include `"ach"`.
+- `invalid customer number`: keep `customer_number` to letters and digits.

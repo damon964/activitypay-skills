@@ -10,7 +10,7 @@ description: >
   names. Do NOT use for full payment at checkout (use booking-checkout), saving cards for ad-hoc
   fees only (use card-on-file), or refunds (use cancellation-refunds).
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   category: checkout
   status: draft
 ---
@@ -53,7 +53,8 @@ Read `api-schema.md` before emitting request bodies.
 4. **Same `order_id`, different idempotency keys.** Both charges carry the booking id as `order_id`. Each charge attempt gets its own UUID; retries of the same attempt reuse it.
 5. **The balance job must be safe to re-run.** Store the balance idempotency key and the result on the booking before and after calling the gateway. Never charge a booking whose balance is already recorded as paid.
 6. **Never store card data.** Only the customer id, payment method id, masked number, and card type.
-7. Amounts in integer cents; timeout ≥ 180 s; log `x-correlation-id`.
+7. **Required custom fields apply to every charge**, including the scheduled balance charge. Store the values with the booking so the job can send them.
+8. Amounts in integer cents; timeout ≥ 180 s; log `x-correlation-id`.
 
 ## Intake
 
@@ -102,3 +103,5 @@ For certification run `check_integration_readiness` with `flows: ["checkout", "d
 - Balance job without idempotency → double charges when the job retries.
 - Using `address_line_1` in vault addresses (vault uses `line_1`).
 - No consent record for the merchant-initiated balance charge.
+- Balance job failing with `custom field [...] is required` because it does not send the merchant's required custom fields.
+- Payment-link fallback refused on dual pricing accounts: send `"payment_methods": ["card", "ach"]`.

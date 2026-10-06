@@ -11,7 +11,7 @@ description: >
   staff-entered bookings (use phone-booking-payment-link), cancellations and refunds (use
   cancellation-refunds), saving cards for later (use card-on-file), or webhook endpoints (use webhooks).
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   category: checkout
   status: draft
 ---
@@ -61,6 +61,7 @@ Read `api-schema.md` before emitting any request body. Do not use field names fr
 7. **`order_id` = booking id** (up to 17 letters and digits) so payments, refunds, and webhooks can be matched.
 8. **Tokens expire in 2 minutes.** Charge immediately after the browser hands the token over.
 9. **Log `x-correlation-id`** with every gateway call.
+10. **Merchants can require custom fields.** If an account marks custom fields as required, every sale fails until they are sent. Read the merchant's fields (`GET /api/customfields`) during onboarding and send `custom_fields` (plus `group_name` if not default) on each sale. See `references/api-schema.md` → Custom fields.
 
 ## Intake
 
@@ -71,6 +72,7 @@ Scan the codebase first: language and framework, where checkout lives, how booki
 - Do they collect tips, taxes, or fees on top of the price?
 - Should the card be saved for later charges? (Yes → also use `card-on-file`.)
 - Which currency? (Sandbox examples use USD.)
+- Do merchants use required custom fields (for example an invoice or booking number)? What should fill them?
 
 ## Prerequisites
 
@@ -140,3 +142,4 @@ Subscribe to `transaction_create` so the booking is confirmed even if the browse
 - Generating a new idempotency key on retry (double charge risk).
 - Confirming a booking on a partial approval.
 - Charging a token more than 2 minutes after it was created.
+- Testing against one merchant account and missing another merchant's required custom fields (`custom field [...] is required`).

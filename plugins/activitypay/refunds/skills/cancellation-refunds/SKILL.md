@@ -9,7 +9,7 @@ description: >
   charge, or releasing a hold, even without endpoint names. Do NOT use for taking payments (use
   booking-checkout or deposits-balance-due) or for chargebacks and disputes.
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   category: refunds
   status: draft
 ---

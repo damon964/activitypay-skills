@@ -10,7 +10,7 @@ description: >
   without endpoint names. Do NOT use for deposit-then-balance flows (use deposits-balance-due, which
   builds on this) or one-time checkout (use booking-checkout).
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   category: vault
   status: draft
 ---
@@ -53,7 +53,8 @@ Remove:   DELETE /api/vault/customer/{id}/card/{payment method id}
 5. **Consent and transparency.** Record what the guest agreed to be charged for, show the stored card ("Visa ending 1111") in their account, and let them remove it.
 6. **One vault customer per guest.** Look up an existing customer id before creating another. `create_vault_record: true` on a sale creates a new customer every time.
 7. **Vault addresses use `line_1` / `line_2`**, unlike transactions (`address_line_1`).
-8. Integer cents; idempotency key per charge; timeout ≥ 180 s; log `x-correlation-id`.
+8. **Required custom fields apply to stored-card charges too.** Send the merchant's required `custom_fields` on every charge, including ones started by background jobs.
+9. Integer cents; idempotency key per charge; timeout ≥ 180 s; log `x-correlation-id`.
 
 ## Intake
 

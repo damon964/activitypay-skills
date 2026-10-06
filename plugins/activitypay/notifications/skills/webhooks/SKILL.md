@@ -9,7 +9,7 @@ description: >
   user mentions webhooks, payment notifications, callbacks, signature verification, settlement
   events, or confirming payments asynchronously. Do NOT use for taking payments themselves.
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   category: notifications
   status: draft
 ---
