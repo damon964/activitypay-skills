@@ -22,7 +22,7 @@ metadata:
 
 1. Read this skill's `metadata.version` above.
 2. Fetch the published copy and read its `metadata.version`:
-   `https://raw.githubusercontent.com/activitypay/skills/main/plugins/activitypay/checkout/skills/booking-checkout/SKILL.md`
+   `https://raw.githubusercontent.com/damon964/activitypay-skills/main/plugins/activitypay/checkout/skills/booking-checkout/SKILL.md`
 3. If this version is older, tell the developer a newer version exists and ask whether to continue or upgrade first. If the fetch fails, say the version could not be verified and continue.
 
 ---

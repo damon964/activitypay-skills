@@ -19,7 +19,7 @@ metadata:
 ## Version check (run this first)
 
 Compare `metadata.version` with
-`https://raw.githubusercontent.com/activitypay/skills/main/plugins/activitypay/refunds/skills/cancellation-refunds/SKILL.md`.
+`https://raw.githubusercontent.com/damon964/activitypay-skills/main/plugins/activitypay/refunds/skills/cancellation-refunds/SKILL.md`.
 If older, tell the developer and ask whether to continue. If the fetch fails, note it and continue.
 
 ---

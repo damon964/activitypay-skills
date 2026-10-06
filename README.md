@@ -5,9 +5,12 @@ software with the ActivityPay payment gateway. Once installed, the AI tool follo
 conventions for keys, hosted payment fields, idempotency, error handling, and card-on-file flags
 when it writes integration code.
 
-This repository mirrors the layout of [payroc/skills](https://github.com/payroc/skills). Its planned
-public home is `github.com/activitypay/skills`; the install commands below assume that name. The MCP
-server lives in a separate repository (`activitypay-mcp`).
+This repository mirrors the layout of [payroc/skills](https://github.com/payroc/skills). It lives at
+`github.com/damon964/activitypay-skills`. The MCP server lives in a separate repository
+([activitypay-mcp](https://github.com/damon964/activitypay-mcp)).
+
+To move it later (for example to an `activitypay` GitHub organization), transfer or rename the repo,
+then run `node scripts/set-repo.mjs <owner>/<name>` and commit. See "Moving the repository" below.
 
 ## Plugins
 
@@ -23,7 +26,7 @@ server lives in a separate repository (`activitypay-mcp`).
 Claude Code (plugin marketplace), in your terminal:
 
 ```bash
-claude plugin marketplace add activitypay/skills
+claude plugin marketplace add damon964/activitypay-skills
 ```
 
 Then install the plugins you need, for example `claude plugin install checkout@activitypay-skills`.
@@ -31,7 +34,7 @@ Then install the plugins you need, for example `claude plugin install checkout@a
 Cursor, VS Code, Gemini CLI, and other tools that support Agent Skills:
 
 ```bash
-npx skills add activitypay/skills
+npx skills add damon964/activitypay-skills
 ```
 
 Pair the skills with the ActivityPay MCP server so the AI tool can also search docs, run sandbox
@@ -60,3 +63,14 @@ scripts/sync.mjs                       copies references and regenerates manifes
 2. Run `npm run sync` (or `node scripts/sync.mjs`; Node 20+, no dependencies). It copies references into every skill and regenerates all manifests.
 3. When the gateway docs change, refresh `_shared/references/` from the sources listed in `_shared/references/_sources.md`, and keep them consistent with `spec/openapi.yaml` in the activitypay-mcp repository.
 4. Bump `metadata.version` in any changed `SKILL.md` so installed copies can detect the update.
+
+## Moving the repository
+
+The repository address appears in the install commands above, each skill's version check, and the
+plugin manifests. To change it:
+
+1. Transfer or rename the repository on GitHub. GitHub redirects the old address to the new one, so
+   existing installs keep working as long as nobody creates a new repository at the old address.
+2. Run `node scripts/set-repo.mjs <owner>/<name>` (for example `your-org/skills`). It rewrites every
+   occurrence and regenerates the manifests.
+3. Commit, push, and bump `metadata.version` in each `SKILL.md` so installed copies pick up the new address.

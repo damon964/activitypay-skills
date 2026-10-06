@@ -13,7 +13,7 @@ const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const SHARED = join(ROOT, '_shared/references');
 const PLUGINS_DIR = join(ROOT, 'plugins/activitypay');
 const VERSION = '0.1.0';
-const REPO = 'https://github.com/activitypay/skills';
+const REPO = 'https://github.com/damon964/activitypay-skills';
 
 const DESCRIPTIONS = {
   checkout: 'Skills for booking checkout, deposits with balance due, and phone bookings by payment link',
