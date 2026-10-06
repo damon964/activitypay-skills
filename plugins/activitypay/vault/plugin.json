@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "vault",
+  "version": "0.1.0",
+  "description": "Skills for saving guest cards and charging them later",
+  "author": {
+    "name": "ActivityPay"
+  },
+  "repository": "https://github.com/activitypay/skills",
+  "license": "MIT"
+}

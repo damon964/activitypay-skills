@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "notifications",
+  "version": "0.1.0",
+  "description": "Skills for receiving and verifying gateway webhooks",
+  "author": {
+    "name": "ActivityPay"
+  },
+  "repository": "https://github.com/activitypay/skills",
+  "license": "MIT"
+}

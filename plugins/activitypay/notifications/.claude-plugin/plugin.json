@@ -1,0 +1,7 @@
+{
+  "name": "notifications",
+  "description": "Skills for receiving and verifying gateway webhooks",
+  "skills": [
+    "./skills/webhooks"
+  ]
+}

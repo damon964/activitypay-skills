@@ -1,0 +1,11 @@
+{
+  "name": "refunds",
+  "description": "Skills for cancellations, voids, and refunds",
+  "version": "0.1.0",
+  "author": {
+    "name": "ActivityPay"
+  },
+  "skills": [
+    "./skills/cancellation-refunds"
+  ]
+}

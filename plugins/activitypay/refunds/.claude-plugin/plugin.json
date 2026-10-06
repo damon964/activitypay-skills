@@ -1,0 +1,7 @@
+{
+  "name": "refunds",
+  "description": "Skills for cancellations, voids, and refunds",
+  "skills": [
+    "./skills/cancellation-refunds"
+  ]
+}

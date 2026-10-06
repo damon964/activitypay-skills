@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "refunds",
+  "version": "0.1.0",
+  "description": "Skills for cancellations, voids, and refunds",
+  "author": {
+    "name": "ActivityPay"
+  },
+  "repository": "https://github.com/activitypay/skills",
+  "license": "MIT"
+}

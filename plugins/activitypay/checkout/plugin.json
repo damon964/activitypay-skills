@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "checkout",
+  "version": "0.1.0",
+  "description": "Skills for booking checkout, deposits with balance due, and phone bookings by payment link",
+  "author": {
+    "name": "ActivityPay"
+  },
+  "repository": "https://github.com/activitypay/skills",
+  "license": "MIT"
+}

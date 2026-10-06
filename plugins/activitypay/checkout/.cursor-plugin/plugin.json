@@ -1,0 +1,13 @@
+{
+  "name": "checkout",
+  "description": "Skills for booking checkout, deposits with balance due, and phone bookings by payment link",
+  "version": "0.1.0",
+  "author": {
+    "name": "ActivityPay"
+  },
+  "skills": [
+    "./skills/booking-checkout",
+    "./skills/deposits-balance-due",
+    "./skills/phone-booking-payment-link"
+  ]
+}

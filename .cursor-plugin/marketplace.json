@@ -1,0 +1,33 @@
+{
+  "name": "activitypay-skills",
+  "description": "Cursor plugins for developers integrating booking software with the ActivityPay payment gateway",
+  "author": {
+    "name": "ActivityPay"
+  },
+  "plugins": [
+    {
+      "name": "checkout",
+      "source": "./plugins/activitypay/checkout",
+      "description": "Skills for booking checkout, deposits with balance due, and phone bookings by payment link",
+      "version": "0.1.0"
+    },
+    {
+      "name": "notifications",
+      "source": "./plugins/activitypay/notifications",
+      "description": "Skills for receiving and verifying gateway webhooks",
+      "version": "0.1.0"
+    },
+    {
+      "name": "refunds",
+      "source": "./plugins/activitypay/refunds",
+      "description": "Skills for cancellations, voids, and refunds",
+      "version": "0.1.0"
+    },
+    {
+      "name": "vault",
+      "source": "./plugins/activitypay/vault",
+      "description": "Skills for saving guest cards and charging them later",
+      "version": "0.1.0"
+    }
+  ]
+}

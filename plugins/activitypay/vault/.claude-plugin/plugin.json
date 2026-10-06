@@ -1,0 +1,7 @@
+{
+  "name": "vault",
+  "description": "Skills for saving guest cards and charging them later",
+  "skills": [
+    "./skills/card-on-file"
+  ]
+}
