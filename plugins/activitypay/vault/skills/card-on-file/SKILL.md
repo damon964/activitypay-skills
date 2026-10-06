@@ -10,7 +10,7 @@ description: >
   without endpoint names. Do NOT use for deposit-then-balance flows (use deposits-balance-due, which
   builds on this) or one-time checkout (use booking-checkout).
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
   category: vault
   status: draft
 ---

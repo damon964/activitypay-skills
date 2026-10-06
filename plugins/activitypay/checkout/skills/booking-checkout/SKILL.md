@@ -11,7 +11,7 @@ description: >
   staff-entered bookings (use phone-booking-payment-link), cancellations and refunds (use
   cancellation-refunds), saving cards for later (use card-on-file), or webhook endpoints (use webhooks).
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
   category: checkout
   status: draft
 ---

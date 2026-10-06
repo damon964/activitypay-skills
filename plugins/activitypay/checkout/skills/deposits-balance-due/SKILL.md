@@ -10,7 +10,7 @@ description: >
   names. Do NOT use for full payment at checkout (use booking-checkout), saving cards for ad-hoc
   fees only (use card-on-file), or refunds (use cancellation-refunds).
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
   category: checkout
   status: draft
 ---

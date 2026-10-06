@@ -9,8 +9,10 @@ Read this before writing any error handling. Emit codes and shapes from here, no
    { "status": "failed", "msg": "bad request error: invalid Postal Code" }
    ```
    `msg` usually names the bad field. There is no machine-readable error code; branch on HTTP status.
-2. **The request worked but the payment was not approved.** A transaction was created and
-   `data.response_code` says why. **HTTP 200 does not mean approved.** Always check `response_code`.
+2. **The request worked but the payment was not approved.** The gateway returns HTTP 200, envelope
+   `"status": "success"`, and a transaction with `"status": "declined"` and the decline `response_code`
+   (confirmed in a live sandbox). **HTTP 200 and `status: success` do not mean approved.** Always check
+   `data.response_code`.
 
 ## Account-setting errors (HTTP 400)
 
@@ -37,7 +39,7 @@ so handle them per merchant rather than hardcoding one account's settings.
 
 | Range | Meaning | Booking software should |
 |---|---|---|
-| 100-199 | Approved (100 approved, 101 approved pending customer approval, 110 partial approval) | Confirm (for 110, compare `amount_authorized` to `amount` first) |
+| 100-199 | Approved (100 approved, 101 approved pending customer approval, 110 partial approval) | Confirm (for 110, compare `amount_authorized` to `amount` first; `response` is `"partial"`) |
 | 200-299 | Declined by the issuer | Show a friendly decline, keep the booking hold, let the guest try another card. Never auto-retry |
 | 300-399 | Declined by the gateway (rules, duplicates) | Usually an integration or account setting |
 | 400-499 | Processor error | Retry later with the same `idempotency_key` |
@@ -47,7 +49,7 @@ so handle them per merchant rather than hardcoding one account's settings.
 
 | Code | Meaning | Action |
 |---|---|---|
-| 110 | Partial approval | Collect remainder (second card or payment link) or void |
+| 110 | Partial approval (only if the sale sent `allow_partial_payment: true`; otherwise the issuer's partial becomes a 200 decline) | Collect remainder (second card or payment link) or void |
 | 202 | Insufficient funds | Ask for another card or offer smaller deposit |
 | 205 | SCA required | Run 3DS via hosted fields (`tokenizer.submit(amount)`) |
 | 223 | Expired card | Ask for a current card; enable account updater for stored cards |
