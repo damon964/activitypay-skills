@@ -11,6 +11,7 @@ run `npm run skills:sync`, and update the dates here.
 | `error-response-format.md` (account-setting errors) | Observed in a live ActivityPay sandbox account | 2026-10-06 | live sandbox, ActivityPay |
 | `error-response-format.md` | /docs/api/requests (errors, unauthorized), /docs/api/transactions_response | 2026-10-06 | gateway docs, curated slice + ActivityPay guidance |
 | `test-data.md` | /docs/test_data | 2026-10-06 | gateway docs, curated slice |
+| `api-schema.md`, `error-response-format.md` (public key URL rule, vault country requirement) | Observed in a live ActivityPay sandbox account during a demo integration | 2026-10-07 | live sandbox, ActivityPay |
 | `test-data.md`, `error-response-format.md` (decline shape, decline codes, partial approval flag) | Observed in a live ActivityPay sandbox account | 2026-10-06 | live sandbox, ActivityPay |
 
 ## Known documentation inconsistencies

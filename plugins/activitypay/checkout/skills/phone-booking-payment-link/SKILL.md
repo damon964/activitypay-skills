@@ -9,7 +9,7 @@ description: >
   links, pay-by-link, invoices, sending a link to pay, or collecting a balance remotely. Do NOT use
   for online self-serve checkout (use booking-checkout) or for charging a saved card (use card-on-file).
 metadata:
-  version: "0.1.2"
+  version: "0.1.3"
   category: checkout
   status: draft
 ---

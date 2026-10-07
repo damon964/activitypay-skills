@@ -10,7 +10,7 @@ description: >
   names. Do NOT use for full payment at checkout (use booking-checkout), saving cards for ad-hoc
   fees only (use card-on-file), or refunds (use cancellation-refunds).
 metadata:
-  version: "0.1.2"
+  version: "0.1.3"
   category: checkout
   status: draft
 ---
@@ -102,6 +102,7 @@ For certification run `check_integration_readiness` with `flows: ["checkout", "d
 - Missing or wrong stored-credential flags on the balance charge.
 - Balance job without idempotency → double charges when the job retries.
 - Using `address_line_1` in vault addresses (vault uses `line_1`).
+- Sending a vault postal code without `country` (the vault rejects it).
 - No consent record for the merchant-initiated balance charge.
 - Balance job failing with `custom field [...] is required` because it does not send the merchant's required custom fields.
 - Payment-link fallback refused on dual pricing accounts: send `"payment_methods": ["card", "ach"]`.

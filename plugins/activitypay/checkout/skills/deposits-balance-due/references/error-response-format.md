@@ -24,6 +24,11 @@ so handle them per merchant rather than hardcoding one account's settings.
 | `custom field [<name>] is required` | Merchant marked a custom field as required | `GET /api/customfields`, then send `custom_fields` (and `group_name` if not default) on every sale and authorization |
 | `card and ACH payment methods must be enabled since dual pricing permission is enabled` | Merchant has dual pricing | Invoices must use `"payment_methods": ["card", "ach"]` |
 | `invalid customer number` | Invoice `customer_number` format | Use letters and digits only |
+| Vault create refused over the postal code | Postal code sent without a country | Send `country` with `postal_code` in vault addresses |
+
+Hosted payment fields (browser, not HTTP 400): if `resp.status` is `error` with `unauthorized`, the
+`pub_` key is refused. Check that its allowed URLs include the gateway address, that it has no IP
+restriction, that it is active, and that it is from the same account as the `api_` key.
 
 ## HTTP status handling
 

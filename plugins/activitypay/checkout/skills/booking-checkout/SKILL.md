@@ -11,7 +11,7 @@ description: >
   staff-entered bookings (use phone-booking-payment-link), cancellations and refunds (use
   cancellation-refunds), saving cards for later (use card-on-file), or webhook endpoints (use webhooks).
 metadata:
-  version: "0.1.2"
+  version: "0.1.3"
   category: checkout
   status: draft
 ---
@@ -137,6 +137,7 @@ Subscribe to `transaction_create` so the booking is confirmed even if the browse
 
 - Sending `Authorization: Bearer api_...`. The header value is the bare key.
 - Using the `pub_` key on the server → `unauthorized`.
+- Card form returns `error` / `unauthorized`: the `pub_` key's allowed URLs leave out the gateway address, or it has an IP restriction. See `references/api-schema.md` → Hosted payment fields.
 - Sending `12.99` instead of `1299`.
 - Treating HTTP 200 as approved.
 - Generating a new idempotency key on retry (double charge risk).

@@ -113,6 +113,7 @@ Send required fields on every sale and authorization:
 
 Create query params: `validate=true` ($0.00 verification), `authorize=true` ($1.00 auth, never captured).
 Vault addresses use `line_1` / `line_2` (not `address_line_1`).
+Always send `country` with `postal_code` in vault addresses: the vault rejects a postal code without a country, even though sales accept one (confirmed in a live sandbox).
 Store from the create response: `data.id` (customer id) and `data.data.customer.defaults.payment_method_id`.
 Display: `data.data.customer.payments.cards[].masked_number`, `card_type`.
 
@@ -133,6 +134,12 @@ Status values seen: `pending`, `partially_paid`, `paid`, `past_due`, `declined`.
 ## Hosted payment fields (Tokenizer)
 
 Script: `https://sandbox.activitypaygateway.co/tokenizer/tokenizer.js`. Options: `url` (gateway base URL), `apikey` (`pub_` key), `container`, `submission(resp)`, `settings.payment.card.requireCVV`, `settings.user`, `settings.billing`, `settings.styles`. `resp.status`: `success` (`resp.token`), `validation` (`resp.invalid`), `error` (`resp.msg`). Call `tokenizer.submit()`.
+Always log `resp.msg` on `error`; the form shows the guest nothing useful by itself.
+
+Public key restrictions (confirmed in a live sandbox):
+- The `pub_` and `api_` keys must come from the same sandbox account.
+- If the `pub_` key has allowed URLs, the list must include the gateway's own address (`https://sandbox.activitypaygateway.co` in sandbox) as well as the site. The card form calls the gateway from there, so leaving it out makes every submission fail with `unauthorized`. An empty list also works for sandbox testing.
+- Never restrict a `pub_` key by IP: it is used from each guest's browser, so an IP rule blocks guests.
 
 ## Webhooks
 
