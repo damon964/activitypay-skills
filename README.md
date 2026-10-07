@@ -41,7 +41,7 @@ Pair the skills with the ActivityPay MCP server so the AI tool can also search d
 transactions, and check readiness:
 
 ```bash
-claude mcp add --transport http activitypay https://mcp.activitypay.co/mcp --header "X-ActivityPay-Api-Key: api_yourSandboxKey"
+claude mcp add --transport http activitypay https://mcp.activitypay.ai/mcp --header "X-ActivityPay-Api-Key: api_yourSandboxKey"
 ```
 
 ## Layout
